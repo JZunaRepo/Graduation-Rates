@@ -1,0 +1,36 @@
+---
+title: "Graduation Rate"
+author: "Jonnathan Zuna Largo"
+format: html
+---
+
+## Assignment 1 - Graduation Rates
+
+I will create a dedicated GitHub repository for this project to store, version, and manage the data and analysis. A central data/ folder will house the CSV file and allow for future dataset additions. This project will live in its own repository, Graduation Rates, to ensure clarity, reproducibility, and separation from other work.
+
+### Data Source
+
+The data was found in kaggle Source: <https://www.kaggle.com/datasets/rkiattisak/graduation-rate>
+
+### Data Description
+
+The dataset contains 1,000 observations and is randomly generated. As a result, it does not include any real personal information and is safe for exploration and analysis.
+
+### Approach
+
+I will explore relationships between standardized test scores for ACT and SAT and graduation outcomes. The analysis will focus on identifying trends and patterns across additional variables such as parental income, parental education level, and student GPA.
+
+### Motivation
+
+This dataset was selected to practice analyzing educational outcomes and to better understand how academic performance and socioeconomic factors may interact in student success metrics.
+
+```{r}
+library(tidyverse)
+url <- "https://raw.githubusercontent.com/JZunaRepo/data/refs/heads/main/graduation_rate.csv"
+
+df <- read.csv(
+  file = url
+)
+
+glimpse(df)
+```
