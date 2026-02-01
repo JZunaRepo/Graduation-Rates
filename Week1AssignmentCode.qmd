@@ -1,0 +1,107 @@
+---
+title: "Graduation Rate"
+author: "Jonnathan Zuna Largo"
+format: html
+---
+
+## Assignment 1 - Graduation Rates
+
+I will create a dedicated GitHub repository for this project to store, version, and manage the data and analysis. A central data/ folder will house the CSV file and allow for future dataset additions. This project will live in its own repository, Graduation Rates, to ensure clarity, reproducibility, and separation from other work.
+
+### Data Source
+
+The data was found in kaggle Source: <https://www.kaggle.com/datasets/rkiattisak/graduation-rate>
+
+### Data Description
+
+The dataset contains 1,000 observations and is randomly generated. As a result, it does not include any real personal information and is safe for exploration and analysis.
+
+### Approach
+
+I will explore relationships between standardized test scores for ACT and SAT and graduation outcomes. The analysis will focus on identifying trends and patterns across additional variables such as parental income, parental education level, and student GPA.
+
+### Motivation
+
+This dataset was selected to practice analyzing educational outcomes and to better understand how academic performance and socioeconomic factors may interact in student success metrics.
+
+```{r}
+library(tidyverse)
+url <- "https://raw.githubusercontent.com/JZunaRepo/data/refs/heads/main/graduation_rate.csv"
+
+df <- read.csv(
+  file = url
+)
+
+glimpse(df)
+```
+
+### Exploratory Data Analysis
+
+First 10 rows of the data set
+
+```{r}
+head(df,10)
+```
+
+Checking for any nulls
+
+```{r}
+any(is.na(df))
+```
+
+### Subset
+
+```{r}
+df %>%
+  group_by('parental.level.of.education') %>%
+  summarise(
+    avg_income = mean(`parental.income`),
+    avg_ACT = mean(`ACT.composite.score`),
+    avg_SAT = mean(`SAT.total.score`),
+    avg_hs_GPA = mean(`high.school.gpa`),
+    avg_college_GPA = mean(`college.gpa`)
+    )
+```
+
+```{r}
+ggplot(df, aes(
+  x = `parental.level.of.education`,
+  y = `parental.income`
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Parental Income by Parental Level of Education",
+    x = "Parental Level of Education",
+    y = "Parental Income"
+  )
+```
+
+```{r}
+ggplot(df, aes(
+  x = `parental.level.of.education`,
+  y = `ACT.composite.score`
+)) +
+  geom_boxplot() +
+  labs(
+    title = "ACT Scores by Parental Level of Education",
+    x = "Parental Level of Education",
+    y = "ACT Score"
+  ) 
+```
+
+```{r}
+ggplot(df, aes(
+  x = `parental.level.of.education`,
+  y = `SAT.total.score`
+)) +
+  geom_boxplot() +
+  labs(
+    title = "SAT Scores by Parental Level of Education",
+    x = "Parental Level of Education",
+    y = "SAT Score"
+  )
+```
+
+### Conclusion
+
+The analysis shows that higher parental level of education is associated with higher mean SAT and ACT scores, this suggests a positive relationship between family educational background and standardized test performance. But, due to the nature of the data (generated data), these findings should only be interpreted as an illustrative trend rather than true evidence of real world examples. For Further analysis, if there are any correlations observed in real world data, statistical analysis such as correlation test or regression models would be needed to formally assess the strength and significance of those relationships
